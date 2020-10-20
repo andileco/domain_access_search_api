@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function domain_access_search_api_views_data_alter(array &$data) {
+
+  $table = 'search_api_datasource_resources_index_entity_node';
+  $data[$table][DOMAIN_ACCESS_FIELD]['field']['id'] = 'domain_access_field';
+  $data[$table][DOMAIN_ACCESS_FIELD]['field']['entity_type'] = 'node';
+  $data[$table][DOMAIN_ACCESS_FIELD]['filter']['id'] = 'domain_access_search_api_filter';
+//  $data[$table][DOMAIN_ACCESS_FIELD . '_target_id']['argument']['id'] = 'domain_access_argument';
+  drupal_set_message(json_encode($data[$table]).' DTDA');
+  // Current domain filter.
+  $data[$table]['current_all'] = [
+    'title' => t('Search API: Current domain'),
+    'group' => t('Domain'),
+    'filter' => [
+      'field' => 'item_id',
+      'id' => 'domain_access_search_api_current_all_filter',
+      'title' => t('Search API: Available on current domain'),
+      'help' => t('Filters out nodes available on current domain (published to current domain or all affiliates).'),
+    ],
+  ];
+  // Since domains are not stored in the database, relationships cannot be used.
+  unset($data[$table][DOMAIN_ACCESS_FIELD]['relationship']);
+
+//  // Set the user data.
+//  $table = 'user__' . DOMAIN_ACCESS_FIELD;
+//  $data[$table][DOMAIN_ACCESS_FIELD]['field']['id'] = 'domain_access_field';
+//  $data[$table][DOMAIN_ACCESS_FIELD . '_target_id']['filter']['id'] = 'domain_access_filter';
+//  $data[$table][DOMAIN_ACCESS_FIELD . '_target_id']['argument']['id'] = 'domain_access_argument';
+//
+//  // Since domains are not stored in the database, relationships cannot be used.
+//  unset($data[$table][DOMAIN_ACCESS_FIELD]['relationship']);
+}

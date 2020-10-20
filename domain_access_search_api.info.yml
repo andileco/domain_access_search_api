@@ -1,0 +1,5 @@
+name: Domain Access Search API
+description: 'Creates a Views filter to filter by domain'
+type: module
+package: Domain
+core_version_requirement: ^8 || ^9
