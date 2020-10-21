@@ -43,26 +43,17 @@ class DomainAccessSearchApiCurrentAllFilter extends BooleanOperator {
    */
   public function query() {
     $this->ensureMyTable();
-    $all_table = $this->query->addTable('node__field_domain_all_affiliates', $this->relationship);
-    $all_field = $all_table . '.field_domain_all_affiliates_value';
-    $real_field = $this->tableAlias . '.' . $this->realField;
+
     /** @var DomainNegotiatorInterface $domain_negotiator */
     $domain_negotiator = \Drupal::service('domain.negotiator');
     $current_domain = $domain_negotiator->getActiveDomain();
     $current_domain_id = $current_domain->id();
-    if (empty($this->value)) {
-      $where = "(($real_field <> '$current_domain_id' OR $real_field IS NULL) AND ($all_field = 0 OR $all_field IS NULL))";
-      if ($current_domain->isDefault()) {
-        $where = "($real_field <> '$current_domain_id' AND ($all_field = 0 OR $all_field IS NULL))";
-      }
+
+    if (!empty($this->value)) {
+
+      $this->query->addWhere(0, $this->realField, $current_domain_id, "=");
     }
-    else {
-      $where = "($real_field = '$current_domain_id' OR $all_field = 1)";
-      if ($current_domain->isDefault()) {
-        $where = "(($real_field = '$current_domain_id' OR $real_field IS NULL) OR $all_field = 1)";
-      }
-    }
-    $this->query->addWhereExpression($this->options['group'], $where);
+
     // This filter causes duplicates.
     $this->query->options['distinct'] = TRUE;
   }
