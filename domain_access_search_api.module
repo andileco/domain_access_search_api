@@ -5,7 +5,7 @@
  */
 function domain_access_search_api_views_data_alter(array &$data) {
 
-  $table = 'search_api_datasource_resources_index_entity_node';
+  $table = 'search_api_index_resources_index';
   // Current domain filter.
   $data[$table]['current_all'] = [
     'title' => t('Search API: Current domain'),

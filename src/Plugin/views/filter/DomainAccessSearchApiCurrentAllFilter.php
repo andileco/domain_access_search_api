@@ -3,8 +3,8 @@
 namespace Drupal\domain_access_search_api\Plugin\views\filter;
 
 use Drupal\domain\DomainNegotiatorInterface;
-use Drupal\views\Plugin\views\filter\BooleanOperator;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
+use Drupal\views\Plugin\views\filter\BooleanOperator;
 use Drupal\views\ViewExecutable;
 
 /**
@@ -51,11 +51,9 @@ class DomainAccessSearchApiCurrentAllFilter extends BooleanOperator {
 
     if (!empty($this->value)) {
 
+
       $this->query->addWhere(0, $this->realField, $current_domain_id, "=");
     }
-
-    // This filter causes duplicates.
-    $this->query->options['distinct'] = TRUE;
   }
 
   /**
