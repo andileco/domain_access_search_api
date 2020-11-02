@@ -17,6 +17,7 @@ function domain_access_search_api_views_data_alter(array &$data) {
       'help' => t('Filters out nodes available on current domain (published to current domain or all affiliates).'),
     ],
   ];
+
   // Since domains are not stored in the database, relationships cannot be used.
   unset($data[$table][DOMAIN_ACCESS_FIELD]['relationship']);
 }
