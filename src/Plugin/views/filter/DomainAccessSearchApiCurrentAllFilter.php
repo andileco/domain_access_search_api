@@ -48,10 +48,7 @@ class DomainAccessSearchApiCurrentAllFilter extends BooleanOperator {
     $domain_negotiator = \Drupal::service('domain.negotiator');
     $current_domain = $domain_negotiator->getActiveDomain();
     $current_domain_id = $current_domain->id();
-
     if (!empty($this->value)) {
-
-
       $this->query->addWhere(0, $this->realField, $current_domain_id, "=");
     }
   }
