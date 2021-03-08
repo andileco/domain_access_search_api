@@ -3,3 +3,6 @@ description: 'Creates a Views filter to filter by domain'
 type: module
 package: Domain
 core_version_requirement: ^8 || ^9
+dependencies:
+  - search_api:search_api
+
